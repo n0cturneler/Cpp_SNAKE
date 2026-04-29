@@ -1,0 +1,9 @@
+# Visual Studio
+.vs/
+
+# Build output
+out/
+
+# Executables directory
+bin/
+
