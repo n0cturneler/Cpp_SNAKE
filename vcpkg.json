@@ -1,4 +1,11 @@
 {
-	"dependencies": [ "sfml", "imgui-sfml" ],
-	"builtin-baseline": "80f9bcfa455e875d9c1bf7a7c6692d7e1e481061"
+  "builtin-baseline": "80f9bcfa455e875d9c1bf7a7c6692d7e1e481061",
+  "dependencies": [
+    "imgui-sfml",
+    "rmlui",
+    "sfml",
+    "sol2"
+  ],
+  "name": "cppsnake",
+  "version": "1.0.0"
 }

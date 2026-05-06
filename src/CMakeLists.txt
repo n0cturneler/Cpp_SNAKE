@@ -12,6 +12,14 @@ target_link_libraries(main PRIVATE SFML::Network SFML::Graphics SFML::Window SFM
 find_package(ImGui-SFML CONFIG REQUIRED)
 target_link_libraries(main PRIVATE ImGui-SFML::ImGui-SFML)
 
+# Link RMlUi
+find_package(RmlUi CONFIG REQUIRED)
+target_link_libraries(main PRIVATE RmlUi::RmlUi)
+
+# SOL2 Lua Wrapper, this is heuristically generated, and may not be correct, sol2 lib
+find_package(sol2 CONFIG REQUIRED)
+target_link_libraries(main PRIVATE sol2::sol2)
+
 # Include headers from libs/lib
 target_include_directories (main PRIVATE
 	${CMAKE_SOURCE_DIR}/libs/include
