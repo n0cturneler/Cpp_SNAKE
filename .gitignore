@@ -1,7 +1,7 @@
-# Visual Studio
+# Visual Studio settings
 .vs/
 
-# Build output
+# Build output 
 out/
 
 # Executables directory
