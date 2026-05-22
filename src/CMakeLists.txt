@@ -2,7 +2,7 @@
 # project specific logic here.
 
 # Add source to this project's executable.
-add_executable (main  "main.cpp" "Snake.cpp" "Snake.h"  "Background.h" "Background.cpp")
+add_executable (main  "main.cpp" "Snake.cpp" "Background.cpp")
 
 # Link SFML
 find_package(SFML 3 COMPONENTS Network Graphics Window Audio System CONFIG REQUIRED)

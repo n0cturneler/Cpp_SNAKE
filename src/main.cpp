@@ -8,6 +8,7 @@
 
 #include <iostream>
 #include <cstdint>
+#include <optional>
 
 int main()
 {
@@ -21,14 +22,17 @@ int main()
 
 	//Redo this when main menu
 	Snake snakeHead{};
-	sf::RectangleShape tile{Options::Game::size};
+	sf::RectangleShape tile{Options::Game::snakeSize};
 	tile.setOutlineThickness(Options::Colors::BGoutlineThickness);
 
+	//Game clock and cycle
 	sf::Clock clock;
 	std::uint64_t currentCycle{};
 	float cycleProgress{};
 
 	float tickRate{1.0f / Options::Video::frameRate};
+
+	sf::Keyboard::Key currentInput{sf::Keyboard::Key::Unknown};
 
 	while (window.isOpen())
 	{
@@ -48,34 +52,19 @@ int main()
 			if (event->is<sf::Event::Closed>()) { window.close(); }
 		}
 
+		//Input
+		currentInput = snakeHead.getInput(currentInput);
+
+		if (currentCycle % (Options::Video::frameRate / Options::Game::rate) == 0)
+		{
+			snakeHead.moveSnake(currentInput);
+			// std::cout << snakeHead.position().x << ", " << snakeHead.position().y << '\n';
+		}
+
 		window.clear(sf::Color::Black);
 
 		// Draw checkered pattern
 		Background::drawBackground(window, tile);
-
-		// Fix this input mess !!!
-		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::W) && (snakeHead.direction() != Snake::Direction::down))
-		{
-			snakeHead.setDirection(Snake::Direction::up);
-		}
-		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::S) && (snakeHead.direction() != Snake::Direction::up))
-		{
-			snakeHead.setDirection(Snake::Direction::down);
-		}
-		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::A) && (snakeHead.direction() != Snake::Direction::right))
-		{
-			snakeHead.setDirection(Snake::Direction::left);
-		}
-		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::D) && (snakeHead.direction() != Snake::Direction::left))
-		{
-			snakeHead.setDirection(Snake::Direction::right);
-		}
-
-		if (currentCycle % (Options::Video::frameRate / Options::Game::rate) == 0)
-		{
-			snakeHead.moveSnake();
-		}
-
 		window.draw(snakeHead.object());
 
 		window.display();

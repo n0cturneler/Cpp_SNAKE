@@ -14,7 +14,7 @@ namespace Options
 	
 	namespace Game
 	{
-		inline constexpr sf::Vector2f size{50.0f, 50.0f};
+		inline constexpr sf::Vector2f snakeSize{50.0f, 50.0f};
 
 		inline constexpr sf::Vector2f default_position{0.0f, 0.0f};
 
@@ -35,8 +35,8 @@ namespace Options
 		inline constexpr sf::Color headOutlineColor{sf::Color{175, 175, 0}};
 		inline constexpr sf::Color bodyOutlineColor{sf::Color{46, 112, 46}};
 
-		inline constexpr float headOutlineThickness{Game::size.x / 6};
-		inline constexpr float bodyOutlineThickness{Game::size.x / 8};
+		inline constexpr float headOutlineThickness{Game::snakeSize.x / 6};
+		inline constexpr float bodyOutlineThickness{Game::snakeSize.x / 8};
 
 		//BACKGROUND
 		inline constexpr sf::Color BGMainColor{100, 100, 100};
@@ -45,7 +45,8 @@ namespace Options
 		inline constexpr sf::Color BGAltColor{70, 70, 70};
 		inline constexpr sf::Color BGAltColorBorder{50, 50, 50};
 
-		inline float BGoutlineThickness{-Game::size.x / 10};
+		inline float BGoutlineThickness{-Game::snakeSize.x / 10};
 
+		//APPLE
 	}
 }

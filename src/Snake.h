@@ -2,8 +2,7 @@
 #include "Options.h"
 
 #include <SFML/Graphics.hpp>
-
-using namespace Options;
+#include <SFML/Window.hpp>
 
 class Snake
 {
@@ -24,22 +23,24 @@ public:
 	};
 
 private:
-	sf::RectangleShape m_object{Game::size};
+	sf::RectangleShape m_object{Options::Game::snakeSize};
 
 	Direction m_direction{Direction::none};
 	Type m_type{Type::head};
 
-	int m_length{Game::length};
+	int m_length{Options::Game::length};
 
 public:
 	Snake();
-	Snake(sf::Vector2f size, sf::Vector2f position, sf::Color headColor, sf::Color bodyColor, int length);
+	Snake(sf::Vector2f& size, sf::Vector2f& position, sf::Color& headColor, sf::Color& bodyColor, int length);
 
-	void moveSnake();
-	void setDirection(Direction direction) { m_direction = direction; }
+	~Snake();
 
-	const Direction& direction() const { return m_direction; }
-	const sf::Vector2f& position() const { return m_object.getPosition(); }
+	void moveSnake(sf::Keyboard::Key currentInput);
+	sf::Keyboard::Key getInput(sf::Keyboard::Key currentInput) const;
+
+	Direction direction() const { return m_direction; }
+	sf::Vector2f position() const { return m_object.getPosition(); }
 
 	const sf::RectangleShape& object() const { return m_object; }
 
