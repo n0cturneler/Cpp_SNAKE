@@ -37,16 +37,16 @@ Snake::Snake(sf::Vector2f& size, sf::Vector2f& position, sf::Color& headColor, s
 
 	if (m_type == Type::head)
 	{
-		m_object.setFillColor(Colors::headColor);
-		m_object.setOutlineColor(Colors::headOutlineColor);
+		m_object.setFillColor(headColor);
+		m_object.setOutlineColor(headColor);
 		m_object.setOutlineThickness(Colors::headOutlineThickness);
 		return;
 	}
 	else if (m_type == Type::body)
 	{	
 		m_length = 0;
-		m_object.setFillColor(Colors::bodyColor);
-		m_object.setOutlineColor(Colors::bodyOutlineColor);
+		m_object.setFillColor(bodyColor);
+		m_object.setOutlineColor(bodyColor);
 		m_object.setOutlineThickness(Colors::bodyOutlineThickness);
 	}
 }
