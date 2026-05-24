@@ -1,5 +1,5 @@
-#include "Snake.h"
-#include "Options.h"
+#include "Snake.hpp"
+#include "Options.hpp"
 
 #include <SFML/Graphics.hpp>
 #include <SFML/Window.hpp>
@@ -21,7 +21,7 @@ Snake::Snake()
 		return;
 	}
 	else if (m_type == Type::body)
-	{	
+	{
 		m_length = 0;
 		m_object.setFillColor(Colors::bodyColor);
 		m_object.setOutlineColor(Colors::bodyOutlineColor);
@@ -43,7 +43,7 @@ Snake::Snake(sf::Vector2f& size, sf::Vector2f& position, sf::Color& headColor, s
 		return;
 	}
 	else if (m_type == Type::body)
-	{	
+	{
 		m_length = 0;
 		m_object.setFillColor(bodyColor);
 		m_object.setOutlineColor(bodyColor);
@@ -53,7 +53,7 @@ Snake::Snake(sf::Vector2f& size, sf::Vector2f& position, sf::Color& headColor, s
 
 Snake::~Snake()
 {
-	
+
 }
 
 sf::Keyboard::Key Snake::getInput(sf::Keyboard::Key currentInput) const
@@ -78,34 +78,41 @@ sf::Keyboard::Key Snake::getInput(sf::Keyboard::Key currentInput) const
 }
 
 void Snake::moveSnake(sf::Keyboard::Key currentInput)
-{	
+{
 	using enum sf::Keyboard::Key;
 
-	switch (currentInput)
+	if (m_type == Type::head)
 	{
-	case W:
-		m_object.move({0.0f, -Game::speed});
-		m_direction = Snake::Direction::up;
-		break;
+		switch (currentInput)
+		{
+		case W:
+			m_object.move({0.0f, -Game::speed});
+			m_direction = Snake::Direction::up;
+			return;
 
-	case S:
-		m_object.move({0.0f, Game::speed});
-		m_direction = Snake::Direction::down;
-		break;
+		case S:
+			m_object.move({0.0f, Game::speed});
+			m_direction = Snake::Direction::down;
+			return;
 
-	case A:
-		m_object.move({-Game::speed, 0.0f});
-		m_direction = Snake::Direction::left;
-		break;
+		case A:
+			m_object.move({-Game::speed, 0.0f});
+			m_direction = Snake::Direction::left;
+			return;
 
-	case D:
-		m_object.move({Game::speed, 0.0f});
-		m_direction = Snake::Direction::right;
-		break;
+		case D:
+			m_object.move({Game::speed, 0.0f});
+			m_direction = Snake::Direction::right;
+			return;
 
-	default:
-		m_object.move({0.0f, 0.0f});
-		m_direction = Snake::Direction::none;
-		break;
+		default:
+			m_object.move({0.0f, 0.0f});
+			m_direction = Snake::Direction::none;
+			return;
+		}
+	}
+	else
+	{
+
 	}
 }

@@ -1,5 +1,5 @@
 #pragma once
-#include "Options.h"
+#include "Options.hpp"
 
 #include <SFML/Graphics.hpp>
 #include <SFML/Window.hpp>

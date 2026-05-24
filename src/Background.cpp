@@ -1,7 +1,8 @@
+#include "Background.hpp"
+
+#include "Options.hpp"
+
 #include <SFML/Graphics.hpp>
-
-#include "Options.h"
-
 #include <cstdint>
 
 using namespace Options;

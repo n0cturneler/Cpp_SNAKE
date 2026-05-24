@@ -3,6 +3,14 @@
 
 # Add source to this project's executable.
 add_executable (main  "main.cpp" "Snake.cpp" "Background.cpp")
+target_compile_options(main PRIVATE
+    -Wall
+    -Wextra
+    -Wshadow
+    -Wconversion
+    -Wsign-conversion
+    -pedantic-errors
+)
 
 # Link SFML
 find_package(SFML 3 COMPONENTS Network Graphics Window Audio System CONFIG REQUIRED)
@@ -18,7 +26,6 @@ target_include_directories (main PRIVATE
 #	${CMAKE_SOURCE_DIR}/libs/lib
 # )
 
-if (CMAKE_VERSION VERSION_GREATER 3.12)
-  set_property(TARGET main PROPERTY CXX_STANDARD 23)
-endif()
+
+
 

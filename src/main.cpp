@@ -2,9 +2,9 @@
 #include <SFML/Graphics.hpp>
 #include <SFML/Config.hpp>
 
-#include "Options.h"
-#include "Snake.h"
-#include "Background.h"
+#include "Options.hpp"
+#include "Snake.hpp"
+#include "Background.hpp"
 
 #include <iostream>
 #include <cstdint>
@@ -58,7 +58,7 @@ int main()
 		if (currentCycle % (Options::Video::frameRate / Options::Game::rate) == 0)
 		{
 			snakeHead.moveSnake(currentInput);
-			// std::cout << snakeHead.position().x << ", " << snakeHead.position().y << '\n';
+			std::cout << "[" << snakeHead.position().x << ", " << snakeHead.position().y << "]\n";
 		}
 
 		window.clear(sf::Color::Black);
