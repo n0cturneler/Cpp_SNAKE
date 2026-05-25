@@ -4,6 +4,7 @@
 #include <SFML/Graphics.hpp>
 #include <SFML/Window.hpp>
 
+#include <iostream>
 #include <print>
 #include <vector>
 
@@ -57,7 +58,7 @@ Snake::Snake(Type type, sf::Vector2f& size, sf::Vector2f& position, sf::Color& m
 	m_object.setSize(size);
 	m_object.setPosition(position);
 
-	m_object.setFillColor(outlineColor);
+	m_object.setFillColor(mainColor);
 	m_object.setOutlineColor(outlineColor);
 	m_object.setOutlineThickness(headOutlineThickness);
 
@@ -72,14 +73,20 @@ Snake::~Snake()
 
 }
 
+void Snake::changeColor(sf::Color mainColor, sf::Color outlineColor)
+{
+	m_object.setFillColor(mainColor);
+	m_object.setOutlineColor(outlineColor);
+}
+
 std::vector<Snake> Snake::createSnake(int length, std::vector<sf::Vector2f>& bodyPosVec)
 {
 	std::vector<Snake> snakeArray{};
 
-	// Create head
+	
 	for (int index{1}; index <= length; ++index)
-	{
-		if (index == length)
+	{	
+		if (index == length) // Create head
 		{	
 			Snake s{Type::head};
 			snakeArray.push_back(s);
@@ -87,6 +94,15 @@ std::vector<Snake> Snake::createSnake(int length, std::vector<sf::Vector2f>& bod
 		else
 		{	
 			Snake s{};
+			
+			if (index % 2 != 0 && length % 2 != 0)
+			{	
+				s.changeColor(Options::Colors::headColor, Options::Colors::headOutlineColor);
+			}
+			else if (index % 2 == 0 && length % 2 == 0)
+			{
+				s.changeColor(Options::Colors::headColor, Options::Colors::headOutlineColor);
+			}
 			snakeArray.push_back(s);
 		}
 	}
@@ -108,17 +124,25 @@ void Snake::drawSnake(sf::RenderWindow& window, std::vector<Snake>& snakeArray)
 	}
 }
 
-void Snake::updateSnake(std::vector<sf::Vector2f>& bodyPosVec, sf::Vector2f currentPosition)
+void Snake::updateSnake(std::vector<sf::Vector2f>& bodyPosVec, std::vector<Snake>& snakeArray, sf::Vector2f currentPosition, int currentLength)
 {
-	if (bodyPosVec.size() < (Options::Game::length - 1)) // Head excluded
+	if (static_cast<int>(bodyPosVec.size()) < (currentLength - 1)) // Head excluded
 	{
 		bodyPosVec.push_back(currentPosition);
+
+		Snake s{};
+		snakeArray.insert(snakeArray.begin(), s);
 	}
 	else
 	{
 		bodyPosVec.push_back(currentPosition);
 		bodyPosVec.erase(bodyPosVec.begin());
 	}
+
+	/*for (Snake s : snakeArray)
+	{
+		std::cout << s.m_length;
+	}*/
 
 	/*for (const auto& vector2 : bodyPosVec)
 	{
@@ -187,7 +211,15 @@ void Snake::moveSnake(std::vector<Snake>& snakeArray, std::vector<sf::Vector2f>&
 		}
 		else
 		{	
-			snakeArray.at(index).object().setPosition(bodyPosVec.at(index));
+			if (index <= (bodyPosVec.size() - 1))
+			{
+				snakeArray.at(index).object().setPosition(bodyPosVec.at(index));
+			}
+			else
+			{
+				snakeArray.at(index).object().setPosition(bodyPosVec.back());
+			}
+			
 		}
 
 		++index;

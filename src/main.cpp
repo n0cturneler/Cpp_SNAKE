@@ -25,7 +25,8 @@ int main()
 	std::vector<sf::Vector2f> snakeBodyPositions(Options::Game::length - 1); // Head excluded
 
 	std::vector<Snake> snakeArray(Snake::createSnake(Options::Game::length, snakeBodyPositions));
-	std::size_t headIndex {Options::Game::length - 1};
+	std::size_t headIndex {snakeArray.size() - 1};
+	int currentLength{Options::Game::length};
 
 	//Game clock and cycle
 	sf::Clock clock;
@@ -33,10 +34,12 @@ int main()
 	float cycleProgress{};
 	float tickRate{1.0f / Options::Video::frameRate};
 	
+	[[maybe_unused]] bool gameStart{true};
+
 	sf::Keyboard::Key currentInput{sf::Keyboard::Key::Unknown};
 
 	while (window.isOpen())
-	{
+	{	
 		//Compute frame times
 		float dt{clock.restart().asSeconds()};
 
@@ -58,9 +61,9 @@ int main()
 
 		if (currentCycle % std::uint64_t((Options::Video::frameRate / Options::Game::rate)) == 0)
 		{	
-			Snake::updateSnake(snakeBodyPositions, snakeArray[headIndex].position());
+			headIndex = {snakeArray.size() - 1};
+			Snake::updateSnake(snakeBodyPositions, snakeArray, snakeArray[headIndex].position(), currentLength);
 			Snake::moveSnake(snakeArray, snakeBodyPositions, currentInput);
-
 			 // std::println("Head pos: [{}, {}] ^ ", snakeArray[headIndex].position().x, snakeArray[headIndex].position().y);
 		}
 
