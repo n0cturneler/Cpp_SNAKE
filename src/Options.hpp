@@ -15,28 +15,38 @@ namespace Options
 	namespace Game
 	{
 		inline constexpr sf::Vector2f snakeSize{50.0f, 50.0f};
+		inline constexpr float speedX{snakeSize.x};
+		inline constexpr float speedY{snakeSize.y};
+		inline constexpr sf::Vector2f positionBounds{(static_cast<float>(Video::resX) - snakeSize.x), (static_cast<float>(Video::resY) - snakeSize.y)};
+		inline constexpr sf::Vector2f defaultPosition{positionBounds.x / 2, positionBounds.y / 2};
 
-		inline constexpr sf::Vector2f default_position{(static_cast<float>(Video::resX) - snakeSize.x) / 2, (static_cast<float>(Video::resY) - snakeSize.y) / 2};
+		inline constexpr std::size_t length{5};
 
-		inline constexpr std::size_t length{6};
+		inline constexpr int cycleRate{10};
 
-		inline constexpr int rate{10};
+		inline constexpr int appleAmount{1};
+		inline constexpr int maxApples{2};
 
-		inline constexpr float speed{50.0f};
+		inline constexpr bool godMode{false};
 	}
 
 	namespace Colors
 	{
-		//SNAKE
-		inline constexpr sf::Color headColor{255, 255, 59};
-		inline constexpr sf::Color bodyColor{96, 255, 82};
-		inline constexpr sf::Color appleColor{sf::Color::Red};
-
+		// SNAKE
+			// HEAD
+		inline constexpr sf::Color headColor{247, 255, 8};
 		inline constexpr sf::Color headOutlineColor{175, 175, 0};
-		inline constexpr sf::Color bodyOutlineColor{33, 148, 40};
-
 		inline constexpr float headOutlineThickness{Game::snakeSize.x / 6};
+
+			// BODY
+		inline constexpr sf::Color bodyColor{96, 255, 82};
+		inline constexpr sf::Color bodyOutlineColor{33, 148, 40};
 		inline constexpr float bodyOutlineThickness{-Game::snakeSize.x / 8};
+
+		//APPLE
+		inline constexpr sf::Color appleColor{255, 65, 51};
+		inline constexpr sf::Color appleOutlineColor{110, 29, 23};
+		inline constexpr float appleOutlineThickness{-Game::snakeSize.x / 6};
 
 		//BACKGROUND
 		inline constexpr sf::Color BGMainColor{100, 100, 100};
@@ -47,6 +57,5 @@ namespace Options
 
 		inline constexpr float BGoutlineThickness{-Game::snakeSize.x / 10};
 
-		//APPLE
 	}
 }

@@ -1,8 +1,9 @@
 {
+  "name": "cppsnake",
+  "version": "1.0.0",
   "builtin-baseline": "22d9c655dc24ad24c6cac27607005e619ce46740",
   "dependencies": [
-    "sfml"
-  ],
-  "name": "cppsnake",
-  "version": "1.0.0"
+    "sfml",
+    "imgui-sfml"
+  ]
 }
