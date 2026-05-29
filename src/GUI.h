@@ -25,7 +25,7 @@ public:
 		ImGuiIO& io = ImGui::GetIO();
 
 		ImFont* font = io.Fonts->AddFontFromFileTTF(
-			"../../../../assets/fonts/COURIER_PRIME_CODE.TTF",
+			"assets/fonts/COURIER_PRIME_CODE.TTF",
 			18.0f
 		);
 		assert(font);

@@ -12,6 +12,13 @@ target_compile_options(main PRIVATE
     -pedantic-errors
 )
 
+# Copy assets folder
+add_custom_command(TARGET main POST_BUILD
+    COMMAND ${CMAKE_COMMAND} -E copy_directory
+        "${CMAKE_SOURCE_DIR}/assets"
+        $<TARGET_FILE_DIR:main>/assets
+)
+
 # Link SFML
 find_package(SFML 3 COMPONENTS Network Graphics Window Audio System CONFIG REQUIRED)
 target_link_libraries(main PRIVATE SFML::Network SFML::Graphics SFML::Window SFML::Audio SFML::System)
