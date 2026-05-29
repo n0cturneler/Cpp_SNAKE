@@ -1,9 +1,19 @@
 {
   "name": "cppsnake",
   "version": "1.0.0",
-  "builtin-baseline": "22d9c655dc24ad24c6cac27607005e619ce46740",
   "dependencies": [
     "sfml",
     "imgui-sfml"
+  ],
+  "builtin-baseline": "9e53836916341b64a14162a78ba9802488034a5f",
+  "overrides": [
+    {
+      "name": "imgui",
+      "version": "1.91.9#0"
+    },
+    {
+      "name": "imgui-sfml",
+      "version": "3.0#2"
+    }
   ]
 }

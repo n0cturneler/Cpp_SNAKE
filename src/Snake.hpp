@@ -43,6 +43,7 @@ public:
 	void setColor(sf::Color mainColor, sf::Color outlineColor, float outlineThickness);
 
 	Direction direction() const { return m_direction; }
+	std::string_view directionString() const;
 	sf::Vector2f position() const { return m_object.getPosition(); }
 	Type type() const { return m_type; }
 

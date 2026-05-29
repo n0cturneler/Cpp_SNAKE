@@ -73,6 +73,21 @@ void Snake::setColor(sf::Color mainColor, sf::Color outlineColor, float outlineT
 	m_object.setOutlineThickness(outlineThickness);
 }
 
+std::string_view Snake::directionString() const
+{
+	switch (m_direction)
+	{
+	case Snake::Direction::none: return "none";
+	case Snake::Direction::up: return "up";
+	case Snake::Direction::down: return "down";
+	case Snake::Direction::left: return "left";
+	case Snake::Direction::right: return "right";
+
+	default: return "???";
+
+	}
+}
+
 std::vector<Snake> Snake::createSnake(int length, std::vector<sf::Vector2f>& snakePositions)
 {
 	std::vector<Snake> snakeArray{};

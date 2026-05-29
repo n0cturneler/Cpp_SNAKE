@@ -2,7 +2,7 @@
 # project specific logic here.
 
 # Add source to this project's executable.
-add_executable (main  "main.cpp" "Snake.cpp" "Background.cpp" "Apple.cpp")
+add_executable (main "main.cpp" "Snake.cpp" "Background.cpp" "Apple.cpp")
 target_compile_options(main PRIVATE
     -Wall
     -Wextra
@@ -11,6 +11,16 @@ target_compile_options(main PRIVATE
     -Wsign-conversion
     -pedantic-errors
 )
+
+#VC++ DLLS
+if (WIN32)
+  add_custom_command(
+    TARGET main POST_BUILD
+    COMMAND ${CMAKE_COMMAND} -E copy_if_different
+            $<TARGET_RUNTIME_DLLS:main> $<TARGET_FILE_DIR:main>
+    COMMAND_EXPAND_LISTS
+  )
+endif ()
 
 # Link SFML
 find_package(SFML 3 COMPONENTS Network Graphics Window Audio System CONFIG REQUIRED)

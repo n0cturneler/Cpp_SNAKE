@@ -3,6 +3,10 @@
 #include <SFML/Config.hpp>
 #include <SFML/System.hpp>
 
+#include <imgui-SFML.h>
+#include <imgui.h>
+
+#include "GUI.h"
 #include "Options.hpp"
 #include "Snake.hpp"
 #include "Background.hpp"
@@ -12,16 +16,22 @@
 #include <cstdint>
 #include <optional>
 #include <print>
+#include <string>
+#include <string_view>
+#include <format>
+#include <filesystem>
 
 int main()
 {
 	sf::ContextSettings settings;
 	settings.antiAliasingLevel = 8; // aa level 8
-
 	// sf::VideoMode mode = sf::VideoMode::getDesktopMode(); // get user resolution
 
 	sf::RenderWindow window(sf::VideoMode({Options::Video::resX, Options::Video::resY}), "Snake Game!", sf::Style::Default, sf::State::Windowed, settings);
 	window.setFramerateLimit(Options::Video::frameRate);
+	
+	//IMGUI
+	GUI gui{window};
 
 	//Snake creation
 	std::vector<sf::Vector2f> snakePositions(Options::Game::length);
@@ -46,7 +56,8 @@ int main()
 	while (window.isOpen())
 	{
 		//Compute frame times
-		float dt{clock.restart().asSeconds()};
+		sf::Time elapsed{clock.restart()};
+		float dt{elapsed.asSeconds()};
 
 		// std::println("FPS: {}", 1/dt);
 
@@ -59,7 +70,8 @@ int main()
 
 		//Events
 		while (const std::optional event = window.pollEvent())
-		{
+		{	
+			ImGui::SFML::ProcessEvent(window, *event);
 			if (event->is<sf::Event::Closed>()) { window.close(); }
 		}
 
@@ -80,24 +92,19 @@ int main()
 
 				//std::println("Head pos: [{}, {}]", snakeArray[headIndex].position().x, snakeArray[headIndex].position().y);			
 			}
-
-			if (gameStart) // exit so we keep the pre collision image
-			{
-				window.clear(sf::Color::Black);
-
-				//Draw checkered pattern
-				Background::drawBackground(window);
-
-				//Draw Objects
-				Apple::drawApples(window, appleArray);
-				Snake::drawSnake(window, snakeArray);
-
-				window.display();
-			}
-
 		}
+
+		window.clear(sf::Color::Black);
+
+		Background::drawBackground(window);
+
+		//Draw Objects
+		Apple::drawApples(window, appleArray);
+		Snake::drawSnake(window, snakeArray);
+
+		gui.renderGUI(elapsed, snakeArray, gameStart);
+		window.display();
 	}
-	std::println("Final Length: {}", snakeArray.size());
 }
 
 //Goal: make cool shit
