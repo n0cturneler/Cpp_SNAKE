@@ -12,16 +12,6 @@ target_compile_options(main PRIVATE
     -pedantic-errors
 )
 
-#VC++ DLLS
-if (WIN32)
-  add_custom_command(
-    TARGET main POST_BUILD
-    COMMAND ${CMAKE_COMMAND} -E copy_if_different
-            $<TARGET_RUNTIME_DLLS:main> $<TARGET_FILE_DIR:main>
-    COMMAND_EXPAND_LISTS
-  )
-endif ()
-
 # Link SFML
 find_package(SFML 3 COMPONENTS Network Graphics Window Audio System CONFIG REQUIRED)
 target_link_libraries(main PRIVATE SFML::Network SFML::Graphics SFML::Window SFML::Audio SFML::System)
