@@ -16,10 +16,6 @@
 #include <cstdint>
 #include <optional>
 #include <print>
-#include <string>
-#include <string_view>
-#include <format>
-#include <filesystem>
 
 int main()
 {
@@ -82,11 +78,11 @@ int main()
 
 			if (currentCycle % std::uint64_t((Options::Video::frameRate / Options::Game::cycleRate)) == 0)
 			{
-				Apple::setApples(appleArray, snakeArray);
-
-				currentLength = Apple::updateApples(appleArray, snakeArray, currentLength);
 				Snake::updateSnake(snakePositions, snakeArray, snakeArray[headIndex].position(), currentLength);
 				Snake::moveSnake(snakeArray, snakePositions, currentInput);
+
+				Apple::setApples(appleArray, snakeArray);
+				currentLength = Apple::updateApples(appleArray, snakeArray, currentLength);
 
 				gameStart = Snake::checkBounds(snakeArray);
 
